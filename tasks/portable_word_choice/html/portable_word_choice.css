@@ -1,0 +1,4 @@
+.not_selected {background-color:#FFF; -moz-user-select: none; -khtml-user-select: none; }
+.selected {background-color:#FF0; -moz-user-select: none; -khtml-user-select: none; }
+
+

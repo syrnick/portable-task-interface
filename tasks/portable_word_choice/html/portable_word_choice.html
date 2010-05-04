@@ -1,0 +1,117 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <title>Example Word Choice</title>
+
+  <script language="javascript" src="../common_js/prototype.js" > </script>
+  <script language="javascript" src="../common_js/portable_task.js" > </script>
+  <link href="../common_css/portable_task.css" rel="stylesheet" type="text/css"/>
+
+  <script language="javascript" src="../common_js/easy_selection.js" ></script>
+
+  <link href="portable_word_choice.css" rel="stylesheet" type="text/css"/>
+  <script language="javascript" src="portable_word_choice.js" ></script>
+</head>
+
+<body >
+
+
+<form id="MT_form" name="MT_form" action="http://www.mturk.com/mturk/externalSubmit" onsubmit="return word_choice__collect_data();" method="POST">
+
+<div id="instructions">
+IMPORTANT: Read the <a id="a_instructions" href="instructions.html" target="wnd_instructions">instructions</a>!<hr/>
+</div>
+
+<div id="inline_instructions_parent_div" class="inline_instructions_box">
+
+<div id="inline_instructions_div"><b>Instructions:</b>Click on a word to select/deselect it. INSERT THE INSTRUCTIONS HERE or provide them through instructionsUrl parameter or instructionsDivUrl parameter.</div>
+</div>
+
+
+<div id="task_results_raw"></div>
+
+<div id="task_loading">Loading task...</div>
+
+<div id="task_content" style="display:none">
+<br/>
+<hr/>
+<hr/>
+  <div id="sentences_root"></div>
+<!-- This will be auto-generated for each sentence: <div id="sentence1"></div><hr/>-->
+
+</div>
+
+
+
+
+
+<noscript>
+Error. Javascript is required.
+</noscript>
+<hr/>
+
+<br/><br/>
+Any comments/suggestions/etc: <input type=text name="Comments" id="Comments" value="">
+<hr/>
+
+
+
+<div id="submit_div">
+<input type=hidden name="assignmentId" id="assignmentId" value="">
+<input type=hidden name="workerId" id="workerId" value="">
+<input type=hidden name="hitId" id="hitId" value="">
+
+<input type=hidden name="mode" id="mode" value="">
+<input type=hidden name="start_time" id="start_time" value="">
+<input type=hidden name="load_time" id="load_time" value="">
+<input type=hidden name="submit_time" id="submit_time" value="">
+
+
+<input type=submit id="submitButton">
+</div>
+
+<div id="verbose_parameters" style="display:none">
+<hr/>
+VERBOSE output section. Set verbosity to 3 to hide this information.
+<hr/>
+<table>
+  <tr><th>Parameters:</th><td><div id="parameters"></div></td></tr>
+  <tr><th>Work unit:</th><td><div id="work_unit"></div></td></tr>
+  <tr><th>Submission:</th><td><div id="submission"></div></td></tr>
+</table>
+<input type=submit id="validate_only_button" value="Validate" onclick="collect_and_validate_data();return false;" style="display:none">
+
+</div>
+
+</form>
+
+
+<script language="javascript">
+
+MT_setup();
+
+var verbosity=5;
+
+proxy_mode="task";
+proxy_url="/proxy";
+
+mt_load_task_componentes(mt_mode,portable__all_loaded_handler);
+MT_setup_instructions();
+
+if(verbosity>5)
+{
+$('validate_only_button').style.display="block";
+}
+
+
+///// END of task-specific data
+
+
+</script>
+
+
+
+
+</body>
+</html>

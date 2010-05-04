@@ -1,0 +1,8 @@
+PTI-version: 2.0
+task-id: word_choice
+task-name The interface to allow the workers select relevant words in the text.
+capabilities: [ input, display, edit, quality-oracle]
+proxy: task
+PTI: http://portabletask.appspot.com/word_choice/portable_word_choice.html
+oracle-url: http://portabletask.appspot.com/word_choice_oracle/
+oracle-method: relevant_words.quality_oracle

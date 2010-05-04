@@ -1,0 +1,29 @@
+application: portabletasks
+version: 1
+runtime: python
+api_version: 1
+
+handlers:
+- url: /common_js
+  static_dir: common_js
+- url: /common_css
+  static_dir: common_css
+- url: /word_choice
+  static_dir: html
+- url: /word_choice_oracle/
+  script: word_choice_oracle.py
+- url: /proxy
+  script: proxy.py
+
+
+skip_files:
+- ^(.*/)?app\.yaml
+- ^(.*/)?app\.yml
+- ^(.*/)?index\.yaml
+- ^(.*/)?index\.yml
+- ^(.*/)?#.*#
+- ^(.*/)?.*~
+- ^(.*/)?.*\.py[co]
+- ^(.*/)?.*/RCS/.*
+- ^(.*/)?\..*
+- ^mturk
