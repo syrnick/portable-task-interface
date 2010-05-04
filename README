@@ -1,0 +1,5 @@
+Portable task interface is a specification of the generic Human
+Computation Task. Portable tasks can be integrated in any general
+purpose human computation platform and provide the platform with
+ability to display and edit the results as well as measure the quality
+of the work.
