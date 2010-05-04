@@ -10,6 +10,8 @@ handlers:
   static_dir: common_css
 - url: /word_choice
   static_dir: html
+- url: /word_choice_data
+  static_dir: data
 - url: /word_choice_oracle/
   script: word_choice_oracle.py
 - url: /proxy
