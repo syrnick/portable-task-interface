@@ -17,7 +17,7 @@
 <body >
 
 
-<form id="MT_form" name="MT_form" action="http://www.mturk.com/mturk/externalSubmit" onsubmit="return word_choice__collect_data();" method="POST">
+<form id="PTI_form" name="PTI_form" action="http://www.mturk.com/mturk/externalSubmit" onsubmit="return word_choice__collect_data();" method="POST">
 
 <div id="instructions">
 IMPORTANT: Read the <a id="a_instructions" href="instructions.html" target="wnd_instructions">instructions</a>!<hr/>
@@ -89,19 +89,20 @@ VERBOSE output section. Set verbosity to 3 to hide this information.
 
 <script language="javascript">
 
-MT_setup();
+PTI_setup();
 
 var verbosity=5;
 
-proxy_mode="task";
+proxy_mode="none"; //Use "none" for running on the localhost. Development servers are usually single-threaded, so the proxy can't handle requests to itself.
+//proxy_mode="task";  //Use for deployment on Google App Engine or when the task proxy is available.
 proxy_url="/proxy";
 
-mt_load_task_componentes(mt_mode,portable__all_loaded_handler);
-MT_setup_instructions();
+PTI_load_task_componentes(PTI_mode,portable__all_loaded_handler);
+PTI_setup_instructions();
 
 if(verbosity>5)
 {
-$('validate_only_button').style.display="block";
+    $('validate_only_button').style.display="block";
 }
 
 

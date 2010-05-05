@@ -2,3 +2,12 @@
 .selected {background-color:#FF0; -moz-user-select: none; -khtml-user-select: none; }
 
 
+.text_error {text-decoration: underline; }
+
+
+.gold_div {display: block; }
+
+.error {background-color:#F00; }
+
+
+

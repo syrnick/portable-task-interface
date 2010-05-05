@@ -22,16 +22,17 @@ var decode= function (strToDecode)
     return unescape(encoded.replace(/\+/g,  " "));
 }
 
-var mt_mode;
+var PTI_mode;
+var gold_mode=false;
 var proxy_mode="none";
 var proxy_url="";
 
-var MT_setup = function (){
+var PTI_setup = function (){
     var now = new Date();
     $('start_time').value=now.toUTCString();
 
     mode_value=gup('mode');
-    mt_mode = mode_value;
+    PTI_mode = mode_value;
         
     //
     // Check if the worker is PREVIEWING the HIT or if they've ACCEPTED the HIT
@@ -48,12 +49,17 @@ var MT_setup = function (){
     {
 	submitURL=gup("turkSubmitTo")+"/mturk/externalSubmit";
     }
-    $('MT_form').action=decode(submitURL);
+    $('PTI_form').action=decode(submitURL);
     
-    if( mt_mode == "display" )
+    if( PTI_mode == "display" )
     {
 	$('submitButton').hide();
     }
+
+
+    gold_parameter=gup("gold");
+    if(gold_parameter=="true")
+	gold_mode=true;
     
     
     document.getElementById('assignmentId').value = gup('assignmentId');
@@ -72,14 +78,14 @@ var MT_setup = function (){
 	    hidden_input.setAttribute("name",n);
 	    hidden_input.setAttribute("type","hidden");
 	    hidden_input.setAttribute("value",gup(n));
-	    $('MT_form').appendChild(hidden_input);
+	    $('PTI_form').appendChild(hidden_input);
 	}
     }
     
 }
 
 
-var MT_setup_instructions=function()
+var PTI_setup_instructions=function()
 {
     instructions_URL=unescape(gup("instructionsUrl"));
     if(instructions_URL=="")
@@ -120,11 +126,12 @@ var work_unit_done=0;
 var submission_done=0;
 var gold_done=0;
 
+
 var all_loaded_handler;
 
-var mt_after_load = function()
+var PTI_after_load = function()
 {
-    if(mt_mode=="input")
+    if(PTI_mode=="input")
     {
 	if(work_unit_done && parameters_done)
 	{
@@ -133,7 +140,7 @@ var mt_after_load = function()
 	    $('load_time').value=now.toUTCString();
 	}
     }
-    else if(mt_mode=="display" || mt_mode=="edit")
+    else if(PTI_mode=="display" || PTI_mode=="edit")
     {
 	if(work_unit_done && parameters_done && submission_done)
 	{
@@ -143,7 +150,7 @@ var mt_after_load = function()
 	}
 	
     }
-    else if(mt_mode=="training" )
+    else if(PTI_mode=="training" )
     {
 	if(work_unit_done && parameters_done && gold_done)
 	{
@@ -155,7 +162,7 @@ var mt_after_load = function()
     }
 }
 
-var mt_onParametersLoaded=function(transport,data)
+var PTI_onParametersLoaded=function(transport,data)
 {
     if (data == null)
     {
@@ -164,10 +171,10 @@ var mt_onParametersLoaded=function(transport,data)
     parameters_resp = transport;
     parameters_data = data;
     parameters_done=1;
-    mt_after_load();
+    PTI_after_load();
 }
 
-var mt_onWorkUnitLoaded=function(transport,data)
+var PTI_onWorkUnitLoaded=function(transport,data)
 {
     if (data == null)
     {
@@ -176,11 +183,11 @@ var mt_onWorkUnitLoaded=function(transport,data)
     work_unit_resp = transport;
     work_unit_data = data;
     work_unit_done=1;
-    mt_after_load();
+    PTI_after_load();
 }
 
 
-var mt_onSubmissionLoaded=function(transport,data)
+var PTI_onSubmissionLoaded=function(transport,data)
 {
     if (data == null)
     {
@@ -189,10 +196,10 @@ var mt_onSubmissionLoaded=function(transport,data)
     submission_resp = transport;
     submission_data = data;
     submission_done = 1;
-    mt_after_load();
+    PTI_after_load();
 }
 
-var mt_onGoldLoaded=function(transport,data)
+var PTI_onGoldLoaded=function(transport,data)
 {
     if (data == null)
     {
@@ -201,10 +208,10 @@ var mt_onGoldLoaded=function(transport,data)
     gold_resp = transport;
     gold_data = data;
     gold_done=1;
-    mt_after_load();
+    PTI_after_load();
 }
 
-var mt_get_param=function (parameters,parameter_name,default_value)
+var PTI_get_param=function (parameters,parameter_name,default_value)
 {
     return parameters.get(parameter_name,default_value);
 }
@@ -220,17 +227,17 @@ var PTI_get_request_url = function(target_url)
     return request_url
 }
 
-var mt_load_task_componentes =function(mode,completion_handler)
+var PTI_load_task_componentes =function(mode,completion_handler)
 {
     all_loaded_handler=completion_handler;
-    mt_mode=mode;
+    PTI_mode=mode;
     parameters_url=decode(gup("parametersUrl"));
     if(parameters_url!="")
     {
 	var upd=new Ajax.Request(PTI_get_request_url(parameters_url), 
 				 {
 				     method: 'get',
-				     onSuccess: mt_onParametersLoaded,
+				     onSuccess: PTI_onParametersLoaded,
 				     evalJSON:'force'
 				 });
     }
@@ -239,7 +246,7 @@ var mt_load_task_componentes =function(mode,completion_handler)
     var upd=new Ajax.Request(PTI_get_request_url(work_unit_url), 
 			     {
 				 method: 'get',
-				 onSuccess: mt_onWorkUnitLoaded,
+				 onSuccess: PTI_onWorkUnitLoaded,
 				 evalJSON:'force'
 			     });
 
@@ -253,24 +260,24 @@ var mt_load_task_componentes =function(mode,completion_handler)
 	var upd=new Ajax.Request(PTI_get_request_url(submission_url), 
 				 {
 				     method: 'get',
-				     onSuccess: mt_onSubmissionLoaded,
+				     onSuccess: PTI_onSubmissionLoaded,
 				     evalJSON:'force'
 				 });
     }
     else if(mode=="training")
     {
 	gold_url=unescape(gup("goldUrl"));
-	var upd=new Ajax.Request(gold_url, 
+	var upd=new Ajax.Request(PTI_get_request_url(gold_url),
 				 {
 				     method: 'get',
-				     onSuccess: mt_onGoldLoaded,
+				     onSuccess: PTI_onGoldLoaded,
 				     evalJSON:'force'
 				 });
     }
 }
 
 
-var mt_submit_handler=function (){
+var PTI_submit_handler=function (){
     var now=new Date();
     $('submit_time').value=now.toUTCString();
     return true;
