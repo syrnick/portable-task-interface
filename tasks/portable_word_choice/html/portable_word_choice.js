@@ -50,7 +50,7 @@ var format_sentence=function(root,prefix,sentence,separators){
     gold_div.addClassName("gold_div");
     root.appendChild(gold_div);
 
-    gold_div.innerHTML="Gold standar explanation:<br/>";
+    gold_div.innerHTML="Gold standard explanation:<br/>";
 
     var gold_textarea = document.createElement('textarea');    
     gold_textarea.setAttribute("id",gold_id);

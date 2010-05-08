@@ -52,7 +52,7 @@ Error. Javascript is required.
 <hr/>
 
 <br/><br/>
-Any comments/suggestions/etc: <input type=text name="Comments" id="Comments" value="">
+Any comments/suggestions/etc: <textarea name="Comments" id="Comments" rows="3" cols="40"></textarea>
 <hr/>
 
 
@@ -68,7 +68,7 @@ Any comments/suggestions/etc: <input type=text name="Comments" id="Comments" val
 <input type=hidden name="submit_time" id="submit_time" value="">
 
 
-<input type=submit id="submitButton">
+<input type=submit id="submitButton" value="Submit work">
 </div>
 
 <div id="verbose_parameters" style="display:none">
@@ -93,8 +93,8 @@ PTI_setup();
 
 var verbosity=5;
 
-proxy_mode="none"; //Use "none" for running on the localhost. Development servers are usually single-threaded, so the proxy can't handle requests to itself.
-//proxy_mode="task";  //Use for deployment on Google App Engine or when the task proxy is available.
+//proxy_mode="none"; //Use "none" for running on the localhost. Development servers are usually single-threaded, so the proxy can't handle requests to itself.
+proxy_mode="task";  //Use for deployment on Google App Engine or when the task proxy is available.
 proxy_url="/proxy";
 
 PTI_load_task_componentes(PTI_mode,portable__all_loaded_handler);

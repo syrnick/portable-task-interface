@@ -100,7 +100,7 @@ var PTI_setup_instructions=function()
     instructions_div_URL=unescape(gup("instructionsDivUrl"));
     if(instructions_div_URL != "")
     {
-	var inline_instruction_updater = new Ajax.Updater($('inline_instructions_div'),instructions_div_URL,{method:'get'});
+	var inline_instruction_updater = new Ajax.Updater($('inline_instructions_div'),PTI_get_request_url(instructions_div_URL),{method:'get'});
 	//	  $('inline_instructions_parent_div').show();
     }else{
         //	  $('inline_instructions_parent_div').hide();
